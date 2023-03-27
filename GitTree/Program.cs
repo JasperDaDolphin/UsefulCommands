@@ -3,13 +3,8 @@ using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 using UsefulCommands.Common;
 
-var logger = new ConsoleLogger();
-
-try
+new Command().Run((ILogger logger, CommandLineApplication app) =>
 {
-    var app = new CommandLineApplication();
-    app.HelpOption();
-
     var root = app.Option("-r|--root <STRING>", "Path of .git directory", CommandOptionType.SingleValue);
     root.DefaultValue = ".";
 
@@ -25,23 +20,13 @@ try
 
     app.OnExecute(() =>
     {
-        var gitTreePrinter = new GitTreePrinter(logger, 
-            root.Value(), 
-            path.Value(), 
+        var gitTreeCommand = new GitTreeCommand(logger,
+            root.Value(),
+            path.Value(),
             depth.ParsedValue,
             !hideFiles.ParsedValue,
             showFileCount.ParsedValue);
 
-        gitTreePrinter.Run();
+        gitTreeCommand.Run();
     });
-
-    app.Execute(args);
-}
-catch (UnrecognizedCommandParsingException ex)
-{
-    logger.LogError(ex.Message);
-}
-catch (Exception)
-{
-    logger.LogError("Unknown error.");
-}
+}, args);

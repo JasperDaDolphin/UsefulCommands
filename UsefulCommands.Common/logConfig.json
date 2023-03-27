@@ -1,0 +1,8 @@
+{
+  "LogLevelSettings": {
+    "Debug": true,
+    "Information": true,
+    "Warning": true,
+    "Error": true
+  }
+}

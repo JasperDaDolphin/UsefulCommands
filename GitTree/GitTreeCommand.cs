@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GitTree;
 
-public class GitTreePrinter
+public class GitTreeCommand
 {
     private const string SPACE          = "    ";
     private const string LINE           = "│   ";
@@ -18,7 +18,7 @@ public class GitTreePrinter
     private bool hideFiles;
     private bool showFileCount;
 
-    public GitTreePrinter(ILogger logger, string root, string path, int maxDepth, bool hideFiles, bool showFileCount)
+    public GitTreeCommand(ILogger logger, string root, string path, int maxDepth, bool hideFiles, bool showFileCount)
     {
         this.logger = logger;
         this.root = root;
